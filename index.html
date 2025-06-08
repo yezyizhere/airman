@@ -1,86 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>빡빡이의 하루</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="h-screen flex items-center justify-center bg-blue-300">
-    <div class="text-center">
-        <h1 class="text-2xl font-bold mb-4">싹지의 슬기로운 병영생활</h1>
-
-        <div class="flex justify-center mb-2">
-            <h2 class="text-4xl font-bold">D - </h2>
-            <h2 class="ml-3 text-4xl font-bold text-red-700" id="day">0</h2>
-        </div>
-
-        <div class="flex justify-center mt-5 mb-4">
-            <h3 class="text-5xl font-bold" id="hour_10">0</h3>
-            <h3 class="ml-3 text-5xl font-bold" id="hour_1">0</h3>
-            <div class="ml-3 text-5xl font-bold">:</div>
-            <h4 class="ml-3 text-5xl font-bold" id="min_10">0</h4>
-            <h4 class="ml-3 text-5xl font-bold" id="min_1">0</h4>
-            <div class="ml-3 text-5xl font-bold">:</div>
-            <h5 class="ml-3 text-5xl font-bold" id="second_10">0</h5>
-            <h5 class="ml-3 text-5xl font-bold" id="second_1">0</h5>
-        </div>
-
-        <p id="content" class="mt-5 text-xl">content 내용</p>
-    </div>
-
-    <script type="module">
-        import timerData from './timer.js';
-
-        const dayElement = document.getElementById('day');
-        const hourElements = [document.getElementById('hour_10'), document.getElementById('hour_1')];
-        const minElements = [document.getElementById('min_10'), document.getElementById('min_1')];
-        const secondElements = [document.getElementById('second_10'), document.getElementById('second_1')];
-        const contentElement = document.getElementById('content');
-
-        const dates = Object.keys(timerData).sort();
-        let currentIndex = 0;
-
-        function updateCountdown() {
-            const now = new Date();
-            const targetDate = new Date(dates[currentIndex]);
-            const timeDiff = targetDate - now;
-
-            if (timeDiff < 0) {
-                currentIndex++;
-                if (currentIndex >= dates.length) {
-                    dayElement.textContent = "00";
-                    hourElements.forEach(el => el.textContent = "0");
-                    minElements.forEach(el => el.textContent = "0");
-                    secondElements.forEach(el => el.textContent = "0");
-                    contentElement.textContent = "카운트다운 종료";
-                    return;
-                }
-            }
-
-            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-            dayElement.textContent = String(days).padStart(2, '0');
-            updateTimeElement(hourElements, hours);
-            updateTimeElement(minElements, minutes);
-            updateTimeElement(secondElements, seconds);
-            contentElement.textContent = timerData[dates[currentIndex]].content;
-        }
-
-        function updateTimeElement(elements, value) {
-            const strValue = String(value).padStart(2, '0');
-            elements[0].textContent = strValue[0];
-            elements[1].textContent = strValue[1];
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown(); // 초기 업데이트
-    </script>
-</body>
-
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>싹지의 일지</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
